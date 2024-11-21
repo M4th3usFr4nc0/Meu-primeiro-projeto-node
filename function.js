@@ -23,11 +23,9 @@ readline.question('largura: ', (largura) => {
 });
 */
 
-function areaDoCirculo(raio) {
-    const area = 3.14 * raio * raio;
-    return area;
-}
+
+const calcularCirculo = require("./areaDoCirculo.js");
 readline.question('Raio: ', (raio) => {
-        console.log("Area do Circulo:", areaDoCirculo(raio),  "cm²");
+        console.log("Area do Circulo:", calcularCirculo(raio),  "cm²");
         readline.close();
 });
