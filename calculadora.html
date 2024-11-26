@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Calculadora</title>
+	<meta name="description" content="Meu primeiro Formulario" />
+<script>
+  let totalnf = 0;
+    function adicionarLinha() {
+  const tabela = document.getElementById("itens"); // Substitua "minhaTabela" pelo ID da sua tabela
+  const novaLinha = tabela.insertRow(-1); // Insere uma nova linha no final da tabela
+
+  // Adicione células à nova linha (substitua pelos seus dados)
+  const celula1 = novaLinha.insertCell(0);
+  const celula2 = novaLinha.insertCell(1);
+  const celula3 = novaLinha.insertCell(2);
+  const celula4 = novaLinha.insertCell(3);
+  // ... adicione mais células conforme necessário
+
+  celula1.textContent = document.getElementById("nome").value; // Define o conteúdo da célula
+  celula2.textContent = document.getElementById("quantidade").value;
+  celula3.textContent = document.getElementById("valor").value;
+  celula4.textContent = document.getElementById("quantidade").value * document.getElementById("valor").value;
+  totalnf += document.getElementById("quantidade").value * document.getElementById("valor").value;
+  if(document.getElementById("desconto").value < totalnf) {
+    document.getElementById("valornf").value = totalnf - document.getElementById("desconto").value;
+  } else { 
+    document.getElementById("valornf").value = totalnf * 0.90;
+  }
+  // ... defina o conteúdo das outras células
+
+}
+</script>
+  </head>
+  <body>
+    <img src= "Financas.jpg" width="400" height="200">
+    <h2>Calculadora Financeira</h2>
+      <form method = "post"> 
+        <label>CNPJ</label>
+          <input type = "text" name = "cnpj"/> <br><br>
+        <label>Razao Social</label>
+            <input type = "text" name = "razaosocial"/> <br><br>
+        <label>Data</label>
+          <input type = "text" name = "data"/> <br><br>
+        <label>Hora</label>
+          <input type = "text" name = "hora"/> <br><br>
+        <label>Numero da Nota Fiscal</label>
+          <input type = "text" name = "nrnf"/> <br><br>
+        <label>Nome Item</label>
+          <input type = "text" name = "nome" Id = "nome"/> <br><br>
+        <label>Quantidade</label>
+          <input type = "text" name = "quantidade" id = "quantidade"/> <br><br>
+        <label>Valor</label>
+          <input type = "text" name = "valor" Id = "valor"/> <br><br>
+        <label>Desconto</label>
+          <input type = "texto" name = "desconto" id = "desconto" /> <br><br>
+          <input type = "button" style = "background-color: greenyellow;" value = "Adicionar" onclick = "adicionarLinha()"/>
+      </form>
+    <table id = "itens">
+      <tr>
+        <th>Nome Item</th>
+        <th>Quantidade</th>
+        <th>Valor Unitario</th>
+        <th>Valor Total</th>
+      </tr>
+    </table>
+   <label> Valor Total Nota Fiscal</label>
+    <input type = "text" name = "valornf" id = "valornf" /> 
+  </body>
