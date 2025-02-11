@@ -1,2 +1,0 @@
-cnpj: 81828288, razaosocial: matheus, data: 06/08/2005, hora: 12:45, nrnf: 8939877, nome: iphone, quantidade: 2, valor: 6000, desconto: 153
-cnpj: 81828288, razaosocial: matheus, data: 06/08/2005, hora: 12:45, nrnf: 8939877, nome: calção, quantidade: 2, valor: 6000, desconto: 153

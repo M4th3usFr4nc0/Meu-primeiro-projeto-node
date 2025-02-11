@@ -31,10 +31,10 @@ res.sendFile(__dirname + '/public/custosFixos.html');
 app.post('/custosfixos', async (req, res) => {
 
 // Obtém os dados do formulário enviado
-const {nomeItem, categoria, valor } = req.body;
+const {nomeItem, uid, categoria, valor } = req.body;
 
 try {
-const custosFixosRef = db.ref('custosFixos');
+const custosFixosRef = db.ref(uid);
 
 await custosFixosRef.push({
 nomeItem: nomeItem,
@@ -65,7 +65,8 @@ res.status(200).send(`Custo fixo cadastrado com sucesso!
 app.get('/listarcustosfixos', async (req, res) => {
 
 try {
-  const custosFixosRef = db.ref('custosFixos');
+  const uid= req.query.uid;
+  const custosFixosRef = db.ref(uid);
   const snapshot = await custosFixosRef.once('value');
   const data = snapshot.val();
 
@@ -95,6 +96,27 @@ res.status(200).json([]);
 app.get('/login', async (req, res) => {
 res.sendFile(__dirname + '/public/login.html');
 });
+
+app.get('/', async (req, res) => {
+  res.sendFile(__dirname + '/public/home.html');
+  });
+
+app.get('/quem-somos', async (req, res) => {
+  res.sendFile(__dirname + '/public/quemsomos.html');
+  });
+
+app.get('/contato', async (req, res) => {
+  res.sendFile(__dirname + '/public/contato.html');
+  });
+
+app.get('/como-anunciar', async (req, res) => {
+  res.sendFile(__dirname + '/public/comoAnunciar.html');
+  });
+
+app.get('/categorias', async (req, res) => {
+  res.sendFile(__dirname + '/public/categorias.html');
+  });
+  
 
 app.post('/login-executar', async (req, res) => {
   // ... (lógica de autenticação)
@@ -133,6 +155,10 @@ res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
     res.status(500).json({ error: 'Erro ao cadastrar usuário' });
   }
 });
+
+app.get('/pagina-protegida', async (req, res) => {
+  res.sendFile(__dirname + '/public/paginaProtegida.html');
+  });
 
 // Inicializa o servidor na porta 3000
 app.listen(port, () => {
