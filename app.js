@@ -22,13 +22,13 @@ app.use(bodyParser.json());
 // Middleware para servir arquivos estáticos (como o HTML da calculadora)
 app.use(express.static('public'));
 
-app.get('/custosfixos', (req, res) => {
+app.get('/meus-anuncios', (req, res) => {
 
 // Serve o arquivo calculadora.html localizado na pasta public
-res.sendFile(__dirname + '/public/custosFixos.html');
+res.sendFile(__dirname + '/public/meusanuncios.html');
 });
 
-app.post('/custosfixos', async (req, res) => {
+app.post('/meus-anuncios', async (req, res) => {
 
 // Obtém os dados do formulário enviado
 const {nomeItem, uid, categoria, valor } = req.body;
@@ -62,7 +62,7 @@ res.status(200).send(`Custo fixo cadastrado com sucesso!
 
 
 
-app.get('/listarcustosfixos', async (req, res) => {
+app.get('/listarmeusanuncios', async (req, res) => {
 
 try {
   const uid= req.query.uid;
@@ -116,7 +116,11 @@ app.get('/como-anunciar', async (req, res) => {
 app.get('/categorias', async (req, res) => {
   res.sendFile(__dirname + '/public/categorias.html');
   });
-  
+
+app.get('/minha-assinatura', async (req, res) => {
+  res.sendFile(__dirname + '/public/minhaassinatura.html');
+  });
+    
 
 app.post('/login-executar', async (req, res) => {
   // ... (lógica de autenticação)
