@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Calculadora</title>
+	<meta name="description" content="Meu primeiro Formulario" />
+<script>
+  let totalnf = 0;
+    function adicionarLinha() {
+  const tabela = document.getElementById("itens"); // Substitua "minhaTabela" pelo ID da sua tabela
+  const novaLinha = tabela.insertRow(-1); // Insere uma nova linha no final da tabela
+
+  // Adicione células à nova linha (substitua pelos seus dados)
+  const celula1 = novaLinha.insertCell(0);
+  const celula2 = novaLinha.insertCell(1);
+  const celula3 = novaLinha.insertCell(2);
+  const celula4 = novaLinha.insertCell(3);
+  const celula5 = novaLinha.insertCell(4);
+  const celula6 = novaLinha.insertCell(5);
+  const celula7 = novaLinha.insertCell(6);
+  const celula8 = novaLinha.insertCell(7);
+  const celula9 = novaLinha.insertCell(8);
+  
+  // ... adicione mais células conforme necessário
+
+  celula1.textContent = document.getElementById("cnpj").value;
+  celula2.textContent = document.getElementById("razaosocial").value;
+  celula3.textContent = document.getElementById("data").value;
+  celula4.textContent = document.getElementById("hora").value;
+  celula5.textContent = document.getElementById("nrnf").value;
+  celula6.textContent = document.getElementById("nome").value; // Define o conteúdo da célula
+  celula7.textContent = document.getElementById("quantidade").value;
+  celula8.textContent = document.getElementById("valor").value;
+  celula9.textContent = document.getElementById("quantidade").value * document.getElementById("valor").value;
+  totalnf += document.getElementById("quantidade").value * document.getElementById("valor").value;
+  if(document.getElementById("desconto").value < totalnf) {
+    document.getElementById("valornf").value = totalnf - document.getElementById("desconto").value;
+  } else { 
+    document.getElementById("valornf").value = totalnf * 0.90;
+  }
+  // ... defina o conteúdo das outras células
+
+}
+</script>
+  </head>
+  <body>
+    <img src= "Financas.jpg" width="400" height="200">
+    <h2>Calculadora Financeira</h2>
+      <form method = "post" action = "http://localhost:3000/calculadora"> 
+          <label>Email</label>
+            <input type = "text" name = "email"/> <br><br>
+          <label>Senha</label>
+            <input type = "password" name = "senha"/> <br><br>
+        <label>CNPJ</label>
+          <input type = "text" name = "cnpj" id = "cnpj"/> <br><br>
+        <label>Razao Social</label>
+            <input type = "text" name = "razaosocial" id = "razaosocial"/> <br><br>
+        <label>Data</label>
+          <input type = "text" name = "data" id = "data"/> <br><br>
+        <label>Hora</label>
+          <input type = "text" name = "hora" id = "hora"/> <br><br>
+        <label>Numero da Nota Fiscal</label>
+          <input type = "text" name = "nrnf" id = "nrnf"/> <br><br>
+        <label>Nome Item</label>
+          <input type = "text" name = "nome" id = "nome"/> <br><br>
+        <label>Quantidade</label>
+          <input type = "text" name = "quantidade" id = "quantidade"/> <br><br>
+        <label>Valor</label>
+          <input type = "text" name = "valor" id = "valor"/> <br><br>
+        <label>Desconto</label>
+          <input type = "texto" name = "desconto" id = "desconto" /> <br><br>
+          <input type = "submit" style = "background-color: greenyellow;" value = "Adicionar"/>
+      </form>
+    <table id = "itens">
+      <tr>
+        <th>CNPJ</th>
+        <th>Razao Social</th>
+        <th>Data</th>
+        <th>Hora</th>
+        <th>Nr da NF</th>
+        <th>Nome Item</th>
+        <th>Quantidade</th>
+        <th>Valor Unitario</th>
+        <th>Valor Total</th>
+      </tr>
+    </table>
+   <label> Valor Total Nota Fiscal</label>
+    <input type = "text" name = "valornf" id = "valornf" /> 
+  </body>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quem Somos - FiXSY - Conectando Necessidades Diárias</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+        }
+        .menu-toggle div {
+            width: 35px;
+            height: 4px;
+            background-color: #15b66c;
+            margin: 6px 0;
+            border-radius: 2px;
+        }
+        .nav-links {
+            position: fixed;
+            left: -270px;
+            top: 0;
+            width: 270px;
+            height: 100%;
+            background-color: #ffffff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .nav-links a {
+            color: #15b66c;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 15px 20px;
+            display: block;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s;
+        }
+        .nav-links a:hover {
+            background: #f0f0f0;
+        }
+        .nav-links.active {
+            left: 0;
+        }
+        .banner {
+            width: 100%;
+            height: 300px;
+            background-image: url('banner2.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        .content {
+            padding: 30px;
+            color: black;
+        }
+        .content img {
+            width: 100%;
+            max-width: 600px;
+        }
+        .content h2 {
+            color:#15b66c;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector(".nav-links");
+            menu.classList.toggle("active");
+        }
+    </script>
+</head>
+<body>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="nav-links">
+        <a href="/" style="margin-top: 20px;">Início</a>
+        <a href="/categorias">Categorias</a>
+        <a href="/quem-somos">Quem Somos</a>
+        <a href="/contato">Contato</a>
+        <a href="/como-anunciar">Como Anunciar</a>
+        <a href="/login">Login</a>
+    </div>
+    <div class="banner"></div>
+    <div class="content">
+        <h2>A História da FiXSY</h2>
+        <p>A FiXSY nasceu da necessidade de simplificar a conexão entre pessoas que precisam de serviços e profissionais qualificados. A ideia surgiu ao observar como, no dia a dia, encontrar um prestador de serviços confiável pode ser uma tarefa complicada e demorada. Queríamos criar uma plataforma intuitiva, ágil e segura, que colocasse o cliente e o profissional em contato direto, sem burocracia.</p>
+        <p>O nome FiXSY carrega esse propósito em sua essência. Ele vem da junção de "Fix", que significa consertar, resolver ou encontrar uma solução, e a terminação "-SY", que traz um tom moderno e dinâmico. A marca representa rapidez, eficiência e confiança, garantindo que qualquer necessidade do dia a dia possa ser resolvida com apenas alguns cliques.</p>
+        <p>Com uma identidade forte e uma proposta inovadora, a FiXSY chega para transformar a forma como contratamos e oferecemos serviços, tornando tudo mais simples, seguro e acessível para todos.</p>
+    </div>
+</body>
+</html>

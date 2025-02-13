@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Custos Fixos</title>
+    <meta name="description" content="Custos Fixos" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+        }
+        .menu-toggle div {
+            width: 35px;
+            height: 4px;
+            background-color: #15b66c;
+            margin: 6px 0;
+            border-radius: 2px;
+        }
+        .nav-links {
+            position: fixed;
+            left: -270px;
+            top: 0;
+            width: 270px;
+            height: 100%;
+            background-color: #ffffff;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .nav-links a {
+            color: #15b66c;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 15px 20px;
+            display: block;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s;
+        }
+        .nav-links a:hover {
+            background: #f0f0f0;
+        }
+        .nav-links.active {
+            left: 0;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .form-container {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-container label {
+            font-weight: bold;
+            color: #333;
+        }
+        .form-container input {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #15b66c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector(".nav-links");
+            menu.classList.toggle("active");
+        }
+    </script>
+</head>
+<body>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="nav-links">
+        <a href="/" style="margin-top: 20px;">Início</a>
+        <a href="/categorias">Categorias</a>
+        <a href="/quem-somos">Quem Somos</a>
+        <a href="/contato">Contato</a>
+        <a href="/como-anunciar">Como Anunciar</a>
+        <a href="/login">Login</a>
+    </div>
+    <div class="container">
+        <h2 style="color: #15b66c;">Cadastro de Serviço</h2>
+        <div class="form-container">
+            <form method="post" action="/cadastrar-servico">
+                <label>Nome</label>
+                <input type="text" name="nome" id="nome" required>
+                <label>Título</label>
+                <input type="text" name="titulo" id="titulo" required>
+                <label>Data de Cadastro</label>
+                <input type="text" name="datacadastro" id="datacadastro" required>
+                <label>Descrição</label>
+                <input type="text" name="descricao" id="descricao" required>
+                <label>Categoria</label>
+                <input type="text" name="categoria" id="categoria" required>
+                <label>Subcategoria</label>
+                <input type="text" name="subcategoria" id="subcategoria" required>
+                <label>Estado</label>
+                <input type="text" name="estado" id="estado" required>
+                <label>Cidade</label>
+                <input type="text" name="cidade" id="cidade" required>
+                <label>Bairro</label>
+                <input type="text" name="bairro" id="bairro" required>
+                <label>Whatsapp</label>
+                <input type="text" name="whatsapp" id="whatsapp" required>
+                <label>Fotos</label>
+                <input type="text" name="fotos" id="fotos" required>
+                <label>Experiência na Área</label>
+                <input type="text" name="experiencia" id="experiencia" required>
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
