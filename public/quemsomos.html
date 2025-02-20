@@ -3,85 +3,8 @@
 <head>
     <title>Quem Somos - FiXSY - Conectando Necessidades Diárias</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3;
-            text-align: center;
-        }
-        .menu-toggle {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 10px;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1001;
-        }
-        .menu-toggle div {
-            width: 35px;
-            height: 4px;
-            background-color: #15b66c;
-            margin: 6px 0;
-            border-radius: 2px;
-        }
-        .nav-links {
-            position: fixed;
-            left: -270px;
-            top: 0;
-            width: 270px;
-            height: 100%;
-            background-color: #ffffff;
-            padding-top: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: left 0.3s ease-in-out;
-            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-        .nav-links a {
-            color: #15b66c;
-            text-decoration: none;
-            font-size: 20px;
-            padding: 15px 20px;
-            display: block;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background 0.3s;
-        }
-        .nav-links a:hover {
-            background: #f0f0f0;
-        }
-        .nav-links.active {
-            left: 0;
-        }
-        .banner {
-            width: 100%;
-            height: 300px;
-            background-image: url('banner2.jpeg');
-            background-size: cover;
-            background-position: center;
-        }
-        .content {
-            padding: 30px;
-            color: black;
-        }
-        .content img {
-            width: 100%;
-            max-width: 600px;
-        }
-        .content h2 {
-            color:#15b66c;
-        }
-    </style>
-    <script>
-        function toggleMenu() {
-            var menu = document.querySelector(".nav-links");
-            menu.classList.toggle("active");
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="menu-toggle" onclick="toggleMenu()">

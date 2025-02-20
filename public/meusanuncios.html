@@ -1,108 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Custos Fixos</title>
     <meta name="description" content="Custos Fixos" />
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3;
-            text-align: center;
-        }
-        .menu-toggle {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 10px;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1001;
-        }
-        .menu-toggle div {
-            width: 35px;
-            height: 4px;
-            background-color: #15b66c;
-            margin: 6px 0;
-            border-radius: 2px;
-        }
-        .nav-links {
-            position: fixed;
-            left: -270px;
-            top: 0;
-            width: 270px;
-            height: 100%;
-            background-color: #ffffff;
-            padding-top: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: left 0.3s ease-in-out;
-            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-        .nav-links a {
-            color: #15b66c;
-            text-decoration: none;
-            font-size: 20px;
-            padding: 15px 20px;
-            display: block;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background 0.3s;
-        }
-        .nav-links a:hover {
-            background: #f0f0f0;
-        }
-        .nav-links.active {
-            left: 0;
-        }
-        .container {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-        }
-        .form-container {
-            display: inline-block;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            max-width: 400px;
-            width: 100%;
-        }
-        .form-container label {
-            font-weight: bold;
-            color: #333;
-        }
-        .form-container input {
-            width: 100%;
-            height: 30px;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .form-container input[type="submit"] {
-            background-color: #15b66c;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            height: 40px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="meusanuncios.css">
+    <script src="script.js" defer></script>
+    <script src="form.js" defer></script>
+
     <script>
-        function toggleMenu() {
-            var menu = document.querySelector(".nav-links");
-            menu.classList.toggle("active");
+        document.addEventListener("DOMContentLoaded", function () {
+            const userData = JSON.parse(localStorage.getItem("userData"));
+
+            if (userData && userData.uid) {
+                const uidInput = document.getElementById("uid");
+                if (uidInput) {
+                    uidInput.value = userData.uid;
+                }
+                fetchAnuncios(userData.uid);
+            }
+        });
+
+        async function fetchAnuncios(uid) {
+            try {
+                const response = await fetch(`/listarmeusanuncios?uid=${uid}`);
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar anúncios: ${response.statusText}`);
+                }
+                const anuncios = await response.json();
+                const tabelaBody = document.getElementById("tabela-anuncios-body");
+                tabelaBody.innerHTML = ""; // Limpa a tabela antes de preencher
+                const userData = JSON.parse(localStorage.getItem("userData"));
+                anuncios.forEach(anuncio => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${anuncio.titulo}</td>
+                        <td>${anuncio.descricao}</td>
+                        <td>${anuncio.categoria}</td>
+                        <td>${anuncio.cidade}</td>
+                        <td>${anuncio.dataCadastro} <a href="/excluir-anuncio?uid=${userData.uid}&id=${anuncio.anuncioID}"> <img src="trash.png" width="20px" height="20px"></a></td>
+                    `;
+                    tabelaBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error(error);
+            }
         }
     </script>
 </head>
+
 <body>
     <div class="menu-toggle" onclick="toggleMenu()">
         <div></div>
@@ -111,16 +60,16 @@
     </div>
     <div class="nav-links">
         <a href="/" style="margin-top: 20px;">Início</a>
-        <a href="/categorias">Categorias</a>
+        <a href="/meus-anuncios">Meus Anúncios</a>
         <a href="/quem-somos">Quem Somos</a>
         <a href="/contato">Contato</a>
         <a href="/como-anunciar">Como Anunciar</a>
-        <a href="/login">Login</a>
+        <a href="#" id="linklogout" onclick="logout()">Logout</a>
     </div>
     <div class="container">
         <h2 style="color: #15b66c;">Cadastro de Serviço</h2>
         <div class="form-container">
-            <form method="post" action="/cadastrar-servico">
+            <form method="post" action="/meus-anuncios">
                 <label>Nome</label>
                 <input type="text" name="nome" id="nome" required>
                 <label>Título</label>
@@ -145,9 +94,35 @@
                 <input type="text" name="fotos" id="fotos" required>
                 <label>Experiência na Área</label>
                 <input type="text" name="experiencia" id="experiencia" required>
+                <input type="hidden" name="uid" id="uid">
                 <input type="submit" value="Cadastrar">
             </form>
         </div>
     </div>
+
+    <!-- Tabela de Anúncios -->
+    <div class="container">
+        <h2 style="color: #15b66c;">Meus Anúncios</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Cidade</th>
+                        <th>Data de Cadastro</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-anuncios-body">
+                    <tr>
+                        <td colspan="5">Carregando anúncios...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
+
 </html>

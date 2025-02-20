@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos os Anúncios</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchAnuncios();
+        });
+
+        async function fetchAnuncios() {
+            try {
+                const response = await fetch('/listar-resultados');
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar anúncios: ${response.statusText}`);
+                }
+                const anuncios = await response.json();
+                try {
+                    const anunciosContainer = document.getElementById("anuncios-container");
+                    anunciosContainer.innerHTML = ""; // Limpa antes de preencher
+                    const userData = JSON.parse(localStorage.getItem("userData"));
+
+                    anuncios.forEach(anuncio => {
+                        const card = document.createElement("div");
+                        card.classList.add("anuncio-card");
+
+                        card.innerHTML = `
+            <img src="${anuncio.fotos || 'placeholder.jpg'}" alt="${anuncio.titulo}">
+            <h3>${anuncio.titulo}</h3>
+            <p><strong>Categoria:</strong> ${anuncio.categoria}</p>
+            <p><strong>Cidade:</strong> ${anuncio.cidade}</p>
+            <p><strong>Descrição:</strong> ${anuncio.descricao}</p>
+            <a href="https://wa.me/${anuncio.whatsapp.replace(/\D/g, '')}" class="botao-contato" target="_blank">
+                <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
+            </a>
+        `;
+
+                        anunciosContainer.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
+    <style>
+        .anuncios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .anuncio-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            transition: transform 0.3s;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .anuncio-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .anuncio-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .anuncio-card h3 {
+            margin: 10px 0;
+            color: #15b66c;
+        }
+
+        .anuncio-card p {
+            margin: 10px 0;
+        }
+
+        .botao-contato {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .botao-contato:hover {
+            background-color: #1ebe57;
+        }
+
+        .botao-contato img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="nav-links">
+        <a href="/" style="margin-top: 20px;">Início</a>
+        <a href="/categorias">Categorias</a>
+        <a href="/quem-somos">Quem Somos</a>
+        <a href="/contato">Contato</a>
+        <a href="/como-anunciar">Como Anunciar</a>
+        <a href="/login">Login</a>
+    </div>
+    <div class="container">
+        <h2 style="color: #15b66c; text-align: center;">Todos os Anúncios</h2>
+        <div class="anuncios-container" id="anuncios-container">
+            <div class="anuncio-card">
+                <img src="pintor.jpeg" alt="Pintor Profissional">
+                <h3>Pintor Profissional</h3>
+                <p><strong>Categoria:</strong> Reformas e Construção</p>
+                <p><strong>Cidade:</strong> São Paulo</p>
+                <p><strong>Descrição:</strong> Serviços de pintura residencial e comercial. Qualidade garantida!</p>
+                <a href="https://wa.me/5511987654321" class="botao-contato" target="_blank">
+                    <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
+                </a>
+            </div>
+
+            <div class="anuncio-card">
+                <img src="encanador.jpeg" alt="Serviço de Encanamento">
+                <h3>Serviço de Encanamento</h3>
+                <p><strong>Categoria:</strong> Reformas e Construção</p>
+                <p><strong>Cidade:</strong> Rio de Janeiro</p>
+                <p><strong>Descrição:</strong> Especialista em vazamentos e instalações hidráulicas.</p>
+                <a href="https://wa.me/5521998765432" class="botao-contato" target="_blank">
+                    <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
