@@ -53,7 +53,6 @@ app.post('/meus-anuncios', async (req, res) => {
     await meusanunciosRef.push({
       nome: nome,
       titulo: titulo,
-      datacadastro: datacadastro,
       descricao: descricao,
       categoria: categoria,
       subcategoria: subcategoria,
@@ -255,6 +254,48 @@ app.post('/cadastro-salvar', async (req, res) => {
 
 app.get('/pagina-protegida', async (req, res) => {
   res.sendFile(__dirname + '/public/paginaProtegida.html');
+});
+
+app.get('/listar-categorias', async (req, res) => {
+  try {
+    const categoriasRef = db.ref("Categorias"); // Referência ao nó "Categorias"
+    const snapshot = await categoriasRef.once('value');
+    const data = snapshot.val();
+
+    if (data) {
+      const categorias = Object.keys(data); // Obtém apenas os nomes das categorias
+      return res.json(categorias);
+    } else {
+      return res.json([]);
+    }
+  } catch (error) {
+    console.error("Erro ao buscar categorias:", error);
+    return res.status(500).send("Erro ao buscar categorias.");
+  }
+});
+
+app.get('/listar-subcategorias', async (req, res) => {
+  try {
+    const categoria = req.query.categoria; // Obtém a categoria da query string
+
+    if (!categoria) {
+      return res.status(400).json({ error: "O parâmetro 'categoria' é obrigatório." });
+    }
+
+    const subcategoriasRef = db.ref(`Categorias/${categoria}`); // Caminho para a categoria informada
+    const snapshot = await subcategoriasRef.once('value');
+    const data = snapshot.val();
+
+    if (data) {
+      const subcategorias = Object.keys(data); // Obtém os nomes das subcategorias
+      return res.json(subcategorias);
+    } else {
+      return res.json([]);
+    }
+  } catch (error) {
+    console.error("Erro ao buscar subcategorias:", error);
+    return res.status(500).send("Erro ao buscar subcategorias.");
+  }
 });
 
 // Inicializa o servidor na porta 3000

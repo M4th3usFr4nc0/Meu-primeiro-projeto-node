@@ -25,6 +25,9 @@
                     const userData = JSON.parse(localStorage.getItem("userData"));
 
                     anuncios.forEach(anuncio => {
+                        if (!anuncio.titulo){
+                            return;
+                        }
                         const card = document.createElement("div");
                         card.classList.add("anuncio-card");
 
@@ -34,7 +37,7 @@
             <p><strong>Categoria:</strong> ${anuncio.categoria}</p>
             <p><strong>Cidade:</strong> ${anuncio.cidade}</p>
             <p><strong>Descrição:</strong> ${anuncio.descricao}</p>
-            <a href="https://wa.me/${anuncio.whatsapp.replace(/\D/g, '')}" class="botao-contato" target="_blank">
+            <a href="https://wa.me/${anuncio.whatsapp ? anuncio.whatsapp.replace(/\D/g, '') : ''}" class="botao-contato" target="_blank">
                 <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
             </a>
         `;

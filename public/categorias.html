@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Categorias - FiXSY</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
+    <script>
+        async function carregarCategorias() {
+            try {
+                const response = await fetch('/listar-categorias'); // Faz a requisição ao endpoint
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar categorias: ${response.statusText}`);
+                }
+
+                const categorias = await response.json(); // Converte a resposta para JSON
+                const categoriesContainer = document.querySelector(".categories"); // Seleciona o container das categorias
+
+                // Limpa o container antes de adicionar os novos itens
+                categoriesContainer.innerHTML = "";
+
+                // Percorre a lista de categorias e cria os links dinamicamente
+                categorias.forEach(categoria => {
+                    const link = document.createElement("a");
+                    link.href = `/categorias/${encodeURIComponent(categoria)}`;
+                    link.classList.add("category-box");
+                    link.textContent = categoria;
+                    categoriesContainer.appendChild(link);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar categorias:", error);
+            }
+        }
+
+        // Chama a função ao carregar a página
+        document.addEventListener("DOMContentLoaded", carregarCategorias);
+
+    </script>
 </head>
+
 <body>
     <div class="menu-toggle" onclick="toggleMenu()">
         <div></div>
@@ -35,4 +68,5 @@
         </div>
     </div>
 </body>
+
 </html>

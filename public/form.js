@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     aplicarMascara(document.getElementById("whatsapp"), "(##) #####-####");
-    aplicarMascara(document.getElementById("datacadastro"), "##/##/####");
 
     // Validação do formulário antes do envio
     document.querySelector("form").addEventListener("submit", function (event) {

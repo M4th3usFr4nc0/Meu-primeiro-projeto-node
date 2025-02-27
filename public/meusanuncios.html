@@ -49,6 +49,79 @@
                 console.error(error);
             }
         }
+        function toggleCadastroForm() {
+            const formCadastro = document.getElementById("form_cadastro");
+            formCadastro.style.display = formCadastro.style.display === "none" ? "block" : "none";
+        }
+
+        async function carregarCategorias() {
+            try {
+                const response = await fetch('/listar-categorias'); // Faz a requisição ao endpoint
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar categorias: ${response.statusText}`);
+                }
+
+                const categorias = await response.json(); // Converte a resposta para JSON
+                const selectCategoria = document.getElementById("categoria"); // Seleciona o <select>
+
+                // Limpa o select antes de adicionar os novos itens
+                selectCategoria.innerHTML = '<option value="">Selecione uma categoria</option>';
+
+                // Percorre a lista de categorias e adiciona opções ao <select>
+                categorias.forEach(categoria => {
+                    const option = document.createElement("option");
+                    option.value = categoria;
+                    option.textContent = categoria;
+                    selectCategoria.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar categorias:", error);
+            }
+        }
+
+        // Chama a função ao carregar a página
+        document.addEventListener("DOMContentLoaded", carregarCategorias);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectCategoria = document.getElementById("categoria");
+            const selectSubcategoria = document.getElementById("subcategoria");
+
+            selectCategoria.addEventListener("change", async function () {
+                const categoriaSelecionada = selectCategoria.value;
+
+                if (categoriaSelecionada) {
+                    await carregarSubcategorias(categoriaSelecionada);
+                } else {
+                    selectSubcategoria.innerHTML = '<option value="">Selecione uma subcategoria</option>';
+                }
+            });
+        });
+
+        async function carregarSubcategorias(categoria) {
+            try {
+                const response = await fetch(`/listar-subcategorias?categoria=${encodeURIComponent(categoria)}`);
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar subcategorias: ${response.statusText}`);
+                }
+
+                const subcategorias = await response.json();
+                const selectSubcategoria = document.getElementById("subcategoria");
+
+                // Limpa o select antes de adicionar os novos itens
+                selectSubcategoria.innerHTML = '<option value="">Selecione uma subcategoria</option>';
+
+                // Percorre a lista de subcategorias e adiciona opções ao <select>
+                subcategorias.forEach(subcategoria => {
+                    const option = document.createElement("option");
+                    option.value = subcategoria;
+                    option.textContent = subcategoria;
+                    selectSubcategoria.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar subcategorias:", error);
+            }
+        }
+
     </script>
 </head>
 
@@ -66,7 +139,7 @@
         <a href="/como-anunciar">Como Anunciar</a>
         <a href="#" id="linklogout" onclick="logout()">Logout</a>
     </div>
-    <div class="container">
+    <div class="container" id="form_cadastro" style="display:none">
         <h2 style="color: #15b66c;">Cadastro de Serviço</h2>
         <div class="form-container">
             <form method="post" action="/meus-anuncios">
@@ -74,14 +147,12 @@
                 <input type="text" name="nome" id="nome" required>
                 <label>Título</label>
                 <input type="text" name="titulo" id="titulo" required>
-                <label>Data de Cadastro</label>
-                <input type="text" name="datacadastro" id="datacadastro" required>
                 <label>Descrição</label>
                 <input type="text" name="descricao" id="descricao" required>
                 <label>Categoria</label>
-                <input type="text" name="categoria" id="categoria" required>
+                <select name="categoria" id="categoria"> <option value="">Selecione uma subcategoria</option></select>
                 <label>Subcategoria</label>
-                <input type="text" name="subcategoria" id="subcategoria" required>
+                <select name="subcategoria" id="subcategoria"> <option value="">Selecione uma subcategoria</option></select>
                 <label>Estado</label>
                 <input type="text" name="estado" id="estado" required>
                 <label>Cidade</label>
@@ -101,8 +172,10 @@
     </div>
 
     <!-- Tabela de Anúncios -->
-    <div class="container">
-        <h2 style="color: #15b66c;">Meus Anúncios</h2>
+    <div class="container" style="width:90%">
+        <h2 style="color: #15b66c;">Meus Anúncios <span
+                style="cursor: pointer; margin-left: 10px; font-size: 24px; color: #15b66c;"
+                onclick="toggleCadastroForm()">➕</span></h2>
         <div class="table-container">
             <table>
                 <thead>
