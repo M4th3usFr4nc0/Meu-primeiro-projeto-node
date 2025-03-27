@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
+    <style>
+        body {
+            background-color: #f3f3f3;
+            text-align: center;
+        }
+
+        /* Container do carrossel */
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin: 30px auto;
+            padding: 10px 0;
+        }
+
+        /* Carrossel de logos */
+        .carousel {
+            display: flex;
+            gap: 50px; /* Aumentei o espaçamento entre as logos */
+            animation: scrollInfinite 10s linear infinite;
+            width: max-content; /* Permite que o carrossel cresça conforme necessário */
+        }
+
+        /* Logos */
+        .carousel img {
+            width: 150px; /* Aumentei o tamanho das logos */
+            height: 150px;
+            filter: grayscale(100%) brightness(0) invert(45%) sepia(100%) saturate(300%);
+            transition: filter 0.3s ease-in-out;
+        }
+
+        .carousel img:hover {
+            filter: none; /* Remove o efeito e mostra a cor original */
+        }
+
+        /* Animação cíclica */
+        @keyframes scrollInfinite {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); } /* Apenas metade, pois duplicamos os itens */
+        }
+    </style>
 </head>
 <body>
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -13,7 +54,7 @@
         <div></div>
     </div>
     <div class="nav-links">
-        <a href="/" style="margin-top: 20px;">Início</a>
+        <a href="/">Início</a>
         <a href="/categorias">Categorias</a>
         <a href="/quem-somos">Quem Somos</a>
         <a href="/contato">Contato</a>
@@ -25,6 +66,23 @@
         <h2>Como funciona a FiXSY?</h2>
         <p>A FiXSY é a solução ideal para conectar clientes e prestadores de serviços de forma rápida e segura. Escolha a categoria desejada, encontre profissionais qualificados e contrate com confiança.</p>
         <img src="jardim.jpeg" alt="Ilustração do funcionamento da FiXSY">
+    </div>
+
+    <!-- Carrossel de Logos -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <img src="logoteste.jpeg" alt="Empresa 1">
+            <img src="logoteste2.jpeg" alt="Empresa 2">
+            <img src="logoteste3.jpeg" alt="Empresa 3">
+            <img src="logo4.png" alt="Empresa 4">
+            <img src="logo5.png" alt="Empresa 5">
+            <!-- Duplicando os itens para a rolagem ser cíclica -->
+            <img src="logoteste.jpeg" alt="Empresa 1">
+            <img src="logoteste2.jpeg" alt="Empresa 2">
+            <img src="logoteste3.jpeg" alt="Empresa 3">
+            <img src="logo4.png" alt="Empresa 4">
+            <img src="logo5.png" alt="Empresa 5">
+        </div>
     </div>
 </body>
 </html>

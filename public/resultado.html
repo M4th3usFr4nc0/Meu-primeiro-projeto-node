@@ -14,7 +14,13 @@
 
         async function fetchAnuncios() {
             try {
-                const response = await fetch('/listar-resultados');
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoria = urlParams.get("categoria");
+
+                // Define o endpoint com ou sem o parâmetro 'categoria'
+                const endpoint = categoria ? `/listar-resultados?categoria=${encodeURIComponent(categoria)}` : "/listar-resultados";
+
+                const response = await fetch(endpoint);
                 if (!response.ok) {
                     throw new Error(`Erro ao buscar anúncios: ${response.statusText}`);
                 }
@@ -25,7 +31,7 @@
                     const userData = JSON.parse(localStorage.getItem("userData"));
 
                     anuncios.forEach(anuncio => {
-                        if (!anuncio.titulo){
+                        if (!anuncio.titulo) {
                             return;
                         }
                         const card = document.createElement("div");

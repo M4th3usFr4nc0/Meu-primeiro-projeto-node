@@ -23,7 +23,7 @@
                 // Percorre a lista de categorias e cria os links dinamicamente
                 categorias.forEach(categoria => {
                     const link = document.createElement("a");
-                    link.href = `/categorias/${encodeURIComponent(categoria)}`;
+                    link.href = `/resultado?categoria=${encodeURIComponent(categoria)}`;
                     link.classList.add("category-box");
                     link.textContent = categoria;
                     categoriesContainer.appendChild(link);
@@ -57,14 +57,6 @@
     <div class="container">
         <h2 style="color: #15b66c;">Categorias de Serviços</h2>
         <div class="categories">
-            <a href="/categorias/Serviços Domésticos" class="category-box">Serviços Domésticos</a>
-            <a href="/categorias/Reparos e Manutenção" class="category-box">Reparos e Manutenção</a>
-            <a href="/categorias/Cuidados Pessoais" class="category-box">Cuidados Pessoais</a>
-            <a href="/categorias/Aulas e Treinamentos" class="category-box">Aulas e Treinamentos</a>
-            <a href="/categorias/Eventos e Entretenimento" class="category-box">Eventos e Entretenimento</a>
-            <a href="/categorias/Consultoria e Negócios" class="category-box">Consultoria e Negócios</a>
-            <a href="/categorias/Saúde e Bem-estar" class="category-box">Saúde e Bem-estar</a>
-            <a href="/categorias/Tecnologia e Informática" class="category-box">Tecnologia e Informática</a>
         </div>
     </div>
 </body>

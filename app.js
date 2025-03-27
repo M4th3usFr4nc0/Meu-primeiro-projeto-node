@@ -88,6 +88,7 @@ app.get('/listar-resultados', async (req, res) => {
     const meusanunciosRef = db.ref(); // Referência raiz do banco de dados
     const snapshot = await meusanunciosRef.once('value');
     const data = snapshot.val();
+    const categoria = req.query.categoria;
 
     if (data) {
       const formattedData = [];
@@ -96,17 +97,19 @@ app.get('/listar-resultados', async (req, res) => {
       Object.entries(data).forEach(([userID, anuncios]) => {
         // Percorre cada anúncio dentro do usuário
         Object.entries(anuncios).forEach(([anuncioID, item]) => {
+          console.log(categoria);
+          if (categoria && categoria != item.categoria){return}
           formattedData.push({
-            anuncioID, // ID do anúncio
-            userID, // ID do usuário que postou o anúncio
-            titulo: item.titulo,
-            categoria: item.categoria,
-            descricao: item.descricao,
-            cidade: item.cidade,
-            estado: item.estado,
-            dataCadastro: new Date(item.dataCadastro).toLocaleDateString("pt-BR"),
-            whatsapp: item.whatsapp,
-          });
+              anuncioID, // ID do anúncio
+              userID, // ID do usuário que postou o anúncio
+              titulo: item.titulo,
+              categoria: item.categoria,
+              descricao: item.descricao,
+              cidade: item.cidade,
+              estado: item.estado,
+              dataCadastro: new Date(item.dataCadastro).toLocaleDateString("pt-BR"),
+              whatsapp: item.whatsapp,
+            });
         });
       });
 
@@ -296,6 +299,10 @@ app.get('/listar-subcategorias', async (req, res) => {
     console.error("Erro ao buscar subcategorias:", error);
     return res.status(500).send("Erro ao buscar subcategorias.");
   }
+});
+
+app.get('/teste', async (req, res) => {
+  res.sendFile(__dirname + '/public/teste.html');
 });
 
 // Inicializa o servidor na porta 3000
