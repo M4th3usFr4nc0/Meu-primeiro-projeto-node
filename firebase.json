@@ -1,0 +1,16 @@
+{
+  "hosting": {
+      "public": "public",  // Pasta com arquivos estáticos (se tiver)
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "node_modules"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/app.js" // Nome do seu arquivo principal
+        }
+      ]
+    }
+  }
