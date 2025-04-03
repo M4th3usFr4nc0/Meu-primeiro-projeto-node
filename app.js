@@ -1,9 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 const admin = require('firebase-admin');
-const serviceAccount = require('./firebaseSDK.json');
 
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount), databaseURL: 'https://controle-financeiro-4deb4-default-rtdb.firebaseio.com/' });
+admin.initializeApp({
+  credential: admin.credential.cert({
+    project_id: process.env.FIREBASE_PROJECT_ID,
+    private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Corrige quebras de linha
+    client_email: process.env.FIREBASE_CLIENT_EMAIL,
+  }),
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+});
+
 const auth = admin.auth();
 const app = express();
 const port = 3000;
