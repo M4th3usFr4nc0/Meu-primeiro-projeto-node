@@ -1,0 +1,257 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    text-align: center;
+}
+
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+}
+
+.menu-toggle div {
+    width: 35px;
+    height: 4px;
+    background-color: #15b66c;
+    margin: 6px 0;
+    border-radius: 2px;
+}
+
+.nav-links {
+    position: fixed;
+    left: -270px;
+    top: 0;
+    width: 270px;
+    height: 100%;
+    background-color: #ffffff;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.nav-links a {
+    color: #15b66c;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 15px 20px;
+    display: block;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.3s;
+}
+
+.nav-links a:hover {
+    background: #f0f0f0;
+}
+
+.nav-links.active {
+    left: 0;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    width: 80%
+}
+
+.form-container {
+    display: inline-block;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    display: inline-block;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-container input {
+    width: 250px;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.form-container input[type="submit"] {
+    background-color: #15b66c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-container input[type="submit"] {
+    background-color: #15b66c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+}
+
+.subscription-box {
+    display: inline-block;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+}
+
+.subscription-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.subscription-box li {
+    margin-bottom: 10px;
+}
+
+.button {
+    background-color: #15b66c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.cancel-button {
+    background-color: red;
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+    background-image: url('bannercategorias.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+    background-image: url('bannerhome.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+a.category-box {
+    background: white;
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+}
+
+.content-box {
+    display: inline-block;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.content img {
+    width: 100%;
+    max-width: 600px;
+}
+
+.content h2 {
+    color:#15b66c;
+}
+
+.form-container input[type="submit"], .form-container button {
+    background-color: #15b66c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 30px;
+}
+
+.form-container label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-container input {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.scroll-item {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 200px;
+    scroll-snap-align: start;
+}
+
+.scroll-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out;
+}
+
+.scroll-item img:hover {
+    filter: grayscale(0%);
+}
+
+@keyframes scrollLoop {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}

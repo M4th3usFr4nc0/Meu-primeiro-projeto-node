@@ -1,12 +1,317 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todos os Anúncios</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Todos os Anúncios - FiXSY - Conectando Necessidades Diárias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 142.1 76.2% 36.3%;
+            --primary-foreground: 355.7 100% 97.3%;
+            --secondary: 240 4.8% 95.9%;
+            --secondary-foreground: 240 5.9% 10%;
+            --muted: 240 4.8% 95.9%;
+            --muted-foreground: 240 3.8% 46.1%;
+            --accent: 240 4.8% 95.9%;
+            --accent-foreground: 240 5.9% 10%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 240 5.9% 90%;
+            --input: 240 5.9% 90%;
+            --ring: 142.1 76.2% 36.3%;
+            --radius: 0.5rem;
+            --whatsapp: 142 70% 49%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem;
+            border-right: 1px solid #e2e8f0;
+            position: fixed;
+            height: 100%;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar h1 {
+            color: hsl(142.1, 76.2%, 36.3%);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: hsl(142.1, 76.2%, 36.3%);
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 2rem;
+            height: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle div {
+            width: 100%;
+            height: 3px;
+            background-color: hsl(142.1, 76.2%, 36.3%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            margin-left: 0;
+            transition: margin-left 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .listings-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .listings-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .listings-header h2 {
+            color: hsl(142.1, 76.2%, 36.3%);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .listings-header p {
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .anuncios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .anuncio-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .anuncio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .anuncio-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .anuncio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .anuncio-card:hover .anuncio-image img {
+            transform: scale(1.05);
+        }
+
+        .anuncio-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .anuncio-title {
+            color: hsl(142.1, 76.2%, 36.3%);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .anuncio-details {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .anuncio-detail {
+            margin-bottom: 0.5rem;
+            display: flex;
+        }
+
+        .anuncio-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #4a5568;
+            width: 90px;
+            flex-shrink: 0;
+        }
+
+        .detail-value {
+            color: #4a5568;
+        }
+
+        .anuncio-description {
+            margin-top: 1rem;
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .contact-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: hsl(var(--whatsapp));
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-top: auto;
+        }
+
+        .contact-button:hover {
+            background-color: hsl(var(--whatsapp) / 0.9);
+        }
+
+        .contact-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            color: #4a5568;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .loading-spinner::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid hsl(142.1, 76.2%, 36.3%);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .page-container {
+                flex-direction: column;
+            }
+
+            .main-content {
+                padding-top: 4rem;
+            }
+
+            .anuncios-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetchAnuncios();
@@ -16,6 +321,10 @@
             try {
                 const urlParams = new URLSearchParams(window.location.search);
                 const categoria = urlParams.get("categoria");
+                const anunciosContainer = document.getElementById("anuncios-container");
+                
+                // Mostrar spinner de carregamento
+                anunciosContainer.innerHTML = '<div class="loading-spinner"></div>';
 
                 // Define o endpoint com ou sem o parâmetro 'categoria'
                 const endpoint = categoria ? `/listar-resultados?categoria=${encodeURIComponent(categoria)}` : "/listar-resultados";
@@ -24,150 +333,123 @@
                 if (!response.ok) {
                     throw new Error(`Erro ao buscar anúncios: ${response.statusText}`);
                 }
+                
                 const anuncios = await response.json();
-                try {
-                    const anunciosContainer = document.getElementById("anuncios-container");
-                    anunciosContainer.innerHTML = ""; // Limpa antes de preencher
-                    const userData = JSON.parse(localStorage.getItem("userData"));
-
-                    anuncios.forEach(anuncio => {
-                        if (!anuncio.titulo) {
-                            return;
-                        }
-                        const card = document.createElement("div");
-                        card.classList.add("anuncio-card");
-
-                        card.innerHTML = `
-            <img src="${anuncio.fotos || 'placeholder.jpg'}" alt="${anuncio.titulo}">
-            <h3>${anuncio.titulo}</h3>
-            <p><strong>Categoria:</strong> ${anuncio.categoria}</p>
-            <p><strong>Cidade:</strong> ${anuncio.cidade}</p>
-            <p><strong>Descrição:</strong> ${anuncio.descricao}</p>
-            <a href="https://wa.me/${anuncio.whatsapp ? anuncio.whatsapp.replace(/\D/g, '') : ''}" class="botao-contato" target="_blank">
-                <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
-            </a>
-        `;
-
-                        anunciosContainer.appendChild(card);
-                    });
-                } catch (error) {
-                    console.error(error);
+                
+                // Limpa o container antes de preencher
+                anunciosContainer.innerHTML = "";
+                
+                // Verifica se há anúncios para exibir
+                if (!anuncios || anuncios.length === 0) {
+                    anunciosContainer.innerHTML = `
+                        <div class="empty-state">
+                            <h3>Nenhum anúncio encontrado</h3>
+                            <p>Não encontramos anúncios para exibir no momento.</p>
+                        </div>
+                    `;
+                    return;
                 }
-
+                
+                // Atualiza o título da página se houver uma categoria selecionada
+                const pageTitle = document.querySelector(".listings-header h2");
+                if (categoria && pageTitle) {
+                    pageTitle.textContent = `Anúncios de ${categoria}`;
+                }
+                
+                // Renderiza os anúncios
+                anuncios.forEach(anuncio => {
+                    if (!anuncio.titulo) {
+                        return;
+                    }
+                    
+                    const card = document.createElement("div");
+                    card.classList.add("anuncio-card");
+                    
+                    // Formata o número do WhatsApp (remove caracteres não numéricos)
+                    const whatsappNumber = anuncio.whatsapp ? anuncio.whatsapp.replace(/\D/g, '') : '';
+                    
+                    card.innerHTML = `
+                        <div class="anuncio-image">
+                            <img src="${anuncio.fotos || 'placeholder.jpg'}" alt="${anuncio.titulo}">
+                        </div>
+                        <div class="anuncio-content">
+                            <h3 class="anuncio-title">${anuncio.titulo}</h3>
+                            <div class="anuncio-details">
+                                <div class="anuncio-detail">
+                                    <span class="detail-label">Categoria:</span>
+                                    <span class="detail-value">${anuncio.categoria}</span>
+                                </div>
+                                <div class="anuncio-detail">
+                                    <span class="detail-label">Cidade:</span>
+                                    <span class="detail-value">${anuncio.cidade}</span>
+                                </div>
+                                <p class="anuncio-description">${anuncio.descricao}</p>
+                            </div>
+                            <a href="https://wa.me/${whatsappNumber}" class="contact-button" target="_blank">
+                                <img src="whatsapp-icon.png" alt="WhatsApp">
+                                Entrar em Contato
+                            </a>
+                        </div>
+                    `;
+                    
+                    anunciosContainer.appendChild(card);
+                });
             } catch (error) {
                 console.error(error);
+                document.getElementById("anuncios-container").innerHTML = `
+                    <div class="empty-state">
+                        <h3>Erro ao carregar anúncios</h3>
+                        <p>Ocorreu um erro ao carregar os anúncios. Por favor, tente novamente mais tarde.</p>
+                    </div>
+                `;
             }
         }
     </script>
-    <style>
-        .anuncios-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .anuncio-card {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            background: #fff;
-            transition: transform 0.3s;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .anuncio-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .anuncio-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .anuncio-card h3 {
-            margin: 10px 0;
-            color: #15b66c;
-        }
-
-        .anuncio-card p {
-            margin: 10px 0;
-        }
-
-        .botao-contato {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background 0.3s;
-            margin-top: 10px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .botao-contato:hover {
-            background-color: #1ebe57;
-        }
-
-        .botao-contato img {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-    </style>
 </head>
-
 <body>
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div class="nav-links">
-        <a href="/" style="margin-top: 20px;">Início</a>
-        <a href="/categorias">Categorias</a>
-        <a href="/quem-somos">Quem Somos</a>
-        <a href="/contato">Contato</a>
-        <a href="/como-anunciar">Como Anunciar</a>
-        <a href="/login">Login</a>
-    </div>
-    <div class="container">
-        <h2 style="color: #15b66c; text-align: center;">Todos os Anúncios</h2>
-        <div class="anuncios-container" id="anuncios-container">
-            <div class="anuncio-card">
-                <img src="pintor.jpeg" alt="Pintor Profissional">
-                <h3>Pintor Profissional</h3>
-                <p><strong>Categoria:</strong> Reformas e Construção</p>
-                <p><strong>Cidade:</strong> São Paulo</p>
-                <p><strong>Descrição:</strong> Serviços de pintura residencial e comercial. Qualidade garantida!</p>
-                <a href="https://wa.me/5511987654321" class="botao-contato" target="_blank">
-                    <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
-                </a>
-            </div>
-
-            <div class="anuncio-card">
-                <img src="encanador.jpeg" alt="Serviço de Encanamento">
-                <h3>Serviço de Encanamento</h3>
-                <p><strong>Categoria:</strong> Reformas e Construção</p>
-                <p><strong>Cidade:</strong> Rio de Janeiro</p>
-                <p><strong>Descrição:</strong> Especialista em vazamentos e instalações hidráulicas.</p>
-                <a href="https://wa.me/5521998765432" class="botao-contato" target="_blank">
-                    <img src="whatsapp-icon.png" alt="WhatsApp">Entrar em Contato
-                </a>
-            </div>
+    <div class="page-container">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
+        
+        <aside class="sidebar" id="sidebar">
+            <h1>FiXSY</h1>
+            <nav class="nav-links">
+                <a href="/">Início</a>
+                <a href="/categorias">Categorias</a>
+                <a href="/quem-somos">Quem Somos</a>
+                <a href="/contato">Contato</a>
+                <a href="/como-anunciar">Como Anunciar</a>
+                <a href="/login">Login</a>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <div class="logo">
+                <a href="/">
+                    <img src="logofixsy.png" alt="FiXSY Logo" width="300">
+                </a>
+            </div>
+            
+            <div class="listings-container">
+                <div class="listings-header">
+                    <h2>Todos os Anúncios</h2>
+                    <p>Encontre os melhores profissionais para o serviço que você precisa</p>
+                </div>
+                
+                <div class="anuncios-container" id="anuncios-container">
+                    <!-- Os anúncios serão carregados dinamicamente pelo JavaScript -->
+                </div>
+            </div>
+        </main>
     </div>
-</body>
 
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
 </html>

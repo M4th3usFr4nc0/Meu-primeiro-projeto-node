@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato - FiXSY - Conectando Necessidades Diárias</title>
+    <title>Como Anunciar - FiXSY - Conectando Necessidades Diárias</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
     <style>
@@ -121,7 +121,7 @@
             margin-bottom: 2rem;
         }
 
-        .contact-container {
+        .advertise-container {
             max-width: 800px;
             margin: 0 auto;
             background-color: #ffffff;
@@ -130,54 +130,76 @@
             padding: 2rem;
         }
 
-        .contact-header {
+        .advertise-header {
             text-align: center;
             margin-bottom: 2rem;
         }
 
-        .contact-header h2 {
+        .advertise-header h2 {
             color: hsl(142.1, 76.2%, 36.3%);
             font-size: 2rem;
             margin-bottom: 1rem;
         }
 
-        .contact-content p {
+        .advertise-content p {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
             color: #4a5568;
         }
 
-        .contact-content p:last-child {
+        .advertise-content p:last-child {
             margin-bottom: 0;
         }
 
-        .contact-email {
-            color: hsl(142.1, 76.2%, 36.3%);
-            font-weight: 600;
-        }
-
-        .contact-card {
+        .steps-container {
             background-color: hsla(142.1, 76.2%, 36.3%, 0.1);
             border-radius: 0.5rem;
             padding: 2rem;
-            margin-top: 2rem;
-            text-align: center;
+            margin: 2rem 0;
         }
 
-        .contact-card h3 {
-            color: hsl(142.1, 76.2%, 36.3%);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+        .steps-list {
+            list-style-position: inside;
+            list-style-type: none;
+            counter-reset: step-counter;
+            margin: 0;
+            padding: 0;
         }
 
-        .contact-card p {
+        .steps-list li {
+            position: relative;
+            padding-left: 3rem;
             margin-bottom: 1.5rem;
+            counter-increment: step-counter;
         }
 
-        .contact-icon {
-            font-size: 2rem;
-            color: hsl(142.1, 76.2%, 36.3%);
-            margin-bottom: 1rem;
+        .steps-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .steps-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2rem;
+            height: 2rem;
+            background-color: hsl(142.1, 76.2%, 36.3%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .note-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid hsl(142.1, 76.2%, 36.3%);
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 0 0.5rem 0.5rem 0;
         }
 
         @media (min-width: 768px) {
@@ -204,7 +226,11 @@
                 padding-top: 4rem;
             }
 
-            .contact-container {
+            .advertise-container {
+                padding: 1.5rem;
+            }
+
+            .steps-container {
                 padding: 1.5rem;
             }
         }
@@ -221,12 +247,11 @@
         <aside class="sidebar" id="sidebar">
             <h1>FiXSY</h1>
             <nav class="nav-links">
-                <a href="/">Início</a>
-                <a href="/categorias">Categorias</a>
-                <a href="/quem-somos">Quem Somos</a>
-                <a href="/contato">Contato</a>
-                <a href="/como-anunciar">Como Anunciar</a>
-                <a href="/login">Login</a>
+                <a href="/minha-assinatura">Minha Assinatura</a>
+                <a href="/meus-anuncios">Meus Anúncios</a>
+                <a href="/contato-logado">Contato</a>
+                <a href="/como-anunciar-logado">Como Anunciar</a>
+                <a href="#" id="linklogout" onclick="logout()">Logout</a>
             </nav>
         </aside>
         
@@ -237,22 +262,27 @@
                 </a>
             </div>
             
-            <div class="contact-container">
-                <div class="contact-header">
-                    <h2>Entre em Contato com a FiXSY</h2>
+            <div class="advertise-container">
+                <div class="advertise-header">
+                    <h2>Como Anunciar na FiXSY</h2>
                 </div>
                 
-                <div class="contact-content">
-                    <p>Estamos aqui para ajudar! Se você tem dúvidas, sugestões ou precisa de suporte, entre em contato conosco pelo e-mail <span class="contact-email">contato@fixsy.com.br</span>. Nossa equipe está pronta para responder rapidamente e garantir que sua experiência com a FiXSY seja a melhor possível.</p>
+                <div class="advertise-content">
+                    <p>Anunciar na FiXSY é simples e rápido! Siga os passos abaixo para começar a divulgar seus serviços:</p>
                     
-                    <p>Seja para anunciar seus serviços, buscar profissionais ou apenas saber mais sobre nossa plataforma, fale conosco! Estamos sempre abertos a ouvir você. 💚</p>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon">✉️</div>
-                    <h3>Fale Conosco</h3>
-                    <p>Nosso time de suporte está disponível para ajudar você com qualquer dúvida ou problema.</p>
-                    <p class="contact-email">contato@fixsy.com.br</p>
+                    <div class="steps-container">
+                        <ol class="steps-list">
+                            <li>Crie uma conta ou faça login na plataforma.</li>
+                            <li>Acesse a seção "Anunciar Serviço" no menu.</li>
+                            <li>Preencha as informações do seu serviço, incluindo descrição e preço.</li>
+                            <li>Adicione fotos para tornar seu anúncio mais atrativo.</li>
+                            <li>Publique seu anúncio e aguarde clientes interessados!</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p>Fique atento ao seu painel de mensagens para responder a clientes e fechar negócios!</p>
+                    </div>
                 </div>
             </div>
         </main>

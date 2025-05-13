@@ -209,8 +209,16 @@ app.get('/contato', async (req, res) => {
   res.sendFile(__dirname + '/public/contato.html');
 });
 
+app.get('/contato-logado', async (req, res) => {
+  res.sendFile(__dirname + '/public/contatologado.html');
+});
+
 app.get('/como-anunciar', async (req, res) => {
   res.sendFile(__dirname + '/public/comoAnunciar.html');
+});
+
+app.get('/como-anunciar-logado', async (req, res) => {
+  res.sendFile(__dirname + '/public/comoAnunciarlogado.html');
 });
 
 app.get('/categorias', async (req, res) => {

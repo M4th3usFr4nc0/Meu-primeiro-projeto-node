@@ -22,7 +22,7 @@ window.login = function login() {
             mensagemErro.textContent = ""; // Limpa mensagem de erro
             localStorage.setItem('userData', JSON.stringify(user));
             // Redireciona para a página protegida ou realiza outras ações
-            window.location.href = '/pagina-protegida';
+            window.location.href = '/minha-assinatura';
         })
         .catch((error) => {
             const errorCode = error.code;

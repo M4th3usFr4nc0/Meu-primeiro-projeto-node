@@ -30,13 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     let speed = 1; // Velocidade da rolagem
-    function scroll() {
-        scrollContainer.style.transform = `translateX(-${speed}px)`;
-        speed += 0.5; // Ajusta a velocidade
-        if (speed >= scrollContainer.scrollWidth / 2) {
-            speed = 1; // Reinicia o efeito quando chega ao final
-        }
-        requestAnimationFrame(scroll);
-    }
-    scroll();
 });
